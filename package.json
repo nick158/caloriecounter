@@ -1,0 +1,23 @@
+{
+  "name": "caloriecounter",
+  "version": "0.0.0",
+  "description": "",
+  "author": "nickc158 <nicholasdlchan60@gmail.com>",
+  "main": "functions/__main__.js",
+  "dependencies": {
+    "aws-sdk": "^2.188.0",
+    "clarifai": "^2.6.0",
+    "fs": "0.0.1-security"
+  },
+  "private": true,
+  "stdlib": {
+    "build": "faaslang",
+    "name": "nickc158/caloriecounter",
+    "timeout": 10000,
+    "publish": true,
+    "personalize": {
+      "keys": [],
+      "user": []
+    }
+  }
+}

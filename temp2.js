@@ -1,26 +1,17 @@
 const Clarifai = require('clarifai');
-const s3 = require('../s3');
 /**
  * A basic Hello World function\
  *@param {string} path
  * @returns {any}
  */
 module.exports = (path, context, callback) => {
-  console.log(context)
   //if use function for callback, then scope is only within block
-  s3.getObject({
-    Key: path
-  }, (error, data) => {
-    if (error) {
-      return callback(error);
-    }
-    let image = data.Body.toString('base64');
+    let url = "https://s3.us-east-2.amazonaws.com/caloriecounter158/" + path;
+  //  callback(null, url);
     const app = new Clarifai.App({
       apiKey: process.env.clarifaiKey
     });
-    app.models.predict("bd367be194cf45149e75f01d59f77ba7", {
-      base64: image
-    }).then(
+    app.models.predict("bd367be194cf45149e75f01d59f77ba7", url ).then(
       function(response) {
         // do something with response
         let possibilities = response.outputs[0].data.concepts;
@@ -40,8 +31,6 @@ module.exports = (path, context, callback) => {
         console.err(err);
         callback(err, result);
       }
-    );
-  })
+    )
+  }
   // initialize with your api key. This will also work in your browser via http://browserify.org/
-
-};
